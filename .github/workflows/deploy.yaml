@@ -1,4 +1,4 @@
-name: Build CI
+name: Deployment Workload
 
 on:
   workflow_dispatch:
