@@ -1,0 +1,27 @@
+package physic.ai.domain
+
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+
+@Entity
+@Table(name = "product")
+class ProductEntity(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long,
+    private var name: String = "",
+    private var isPremium: Boolean = false,
+    private var isActive: Boolean = false
+){
+    fun setPremium(premium: Boolean) {
+        this.isPremium = premium
+    }
+
+    fun setActive(active: Boolean) {
+        this.isActive = active
+    }
+
+    fun isActive() = isActive
+    fun isPremium() = isPremium
+}
