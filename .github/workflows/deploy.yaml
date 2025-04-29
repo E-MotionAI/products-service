@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: lopesdev/products-service
+          images: lopesdev/product-service
 
       - name: Build and push Docker image
         id: push
@@ -45,5 +45,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/products-service:${{ github.event.inputs.version }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/product-service:${{ github.event.inputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
