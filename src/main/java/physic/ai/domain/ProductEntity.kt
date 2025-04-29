@@ -8,8 +8,8 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "product")
-class ProductEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private var id: Long,
+open class ProductEntity(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private var productId: Integer? = null,
     private var name: String = "",
     private var isPremium: Boolean = false,
     private var isActive: Boolean = false
