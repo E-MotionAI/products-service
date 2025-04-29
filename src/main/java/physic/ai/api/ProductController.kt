@@ -35,8 +35,8 @@ class ProductController {
 
     @PUT
     fun updateProduct(productUpdatedDto: ProductUpdatedDto): Response {
-        val (username, email, premium) = productUpdatedDto
-        productService.updateProductProfile(username, premium)
+        val (name, premium) = productUpdatedDto
+        productService.updateProductProfile(name, premium)
         return Response.noContent().build()
     }
 
