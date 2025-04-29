@@ -24,4 +24,5 @@ open class ProductEntity(
 
     fun isActive() = isActive
     fun isPremium() = isPremium
+    fun getName() = name
 }
