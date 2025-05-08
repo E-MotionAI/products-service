@@ -1,20 +1,20 @@
-package physic.ai.domain
+package physic.ai.domain.products
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
-import physic.ai.domain.contracts.IProductDao
+import physic.ai.domain.products.contracts.IProductDao
 
 
 @ApplicationScoped
 class ProductRepository: PanacheRepository<ProductEntity>, IProductDao {
-    override fun getAllProducts(): List<ProductEntity>  = findAll().list()
+    override fun getAllProducts(user: String, active: Boolean?): List<ProductEntity>  = find("user = ?1 and active = ?2", user, active).list()
 
     override fun getProductProfile(name: String): ProductEntity? {
         return find("name", name).firstResultOptional<ProductEntity>().orElse(null)
     }
 
-    override fun registerProduct(user: ProductEntity) {
-        persist(user)
+    override fun registerProduct(product: ProductEntity) {
+        persist(product)
     }
 
     override fun unregisterProduct(name: String): ProductEntity? {
@@ -30,4 +30,7 @@ class ProductRepository: PanacheRepository<ProductEntity>, IProductDao {
         persist(targetProduct)
         return targetProduct
     }
+
+    override fun getAllProductsByUser(user: String): List<ProductEntity>  = findAll().list()
+
 }

@@ -7,9 +7,11 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.PUT
 import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
+import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.core.Response
-import physic.ai.api.dto.ProductUpdatedDto
-import physic.ai.domain.ProductEntity
+import physic.ai.domain.products.dto.NewProductDto
+import physic.ai.domain.products.dto.ProductUpdatedDto
 import physic.ai.services.ProductService
 
 @Path("/api/v1/products")
@@ -19,8 +21,9 @@ class ProductController {
     lateinit var productService: ProductService
 
     @GET
-    fun getAllProducts(): Response =
-        Response.ok(productService.getAllProducts()).build()
+    @Path("/{user}")
+    fun getAllProducts(@PathParam("user") user: String, @QueryParam("active") active: Boolean?): Response =
+        Response.ok(productService.getAllProducts(user, active)).build()
 
     @GET
     @Path("/{name}")
@@ -28,8 +31,8 @@ class ProductController {
         Response.ok(productService.getProductProfile(name)).build()
 
     @POST
-    fun registerProduct(productEntity: ProductEntity): Response {
-        productService.registerProduct(productEntity)
+    fun registerProduct(newProduct: NewProductDto): Response {
+        productService.registerProduct(newProduct)
         return Response.status(Response.Status.CREATED.statusCode).build()
     }
 

@@ -1,4 +1,4 @@
-package physic.ai.domain
+package physic.ai.domain.products
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -25,4 +25,8 @@ open class ProductEntity(
     fun isActive() = isActive
     fun isPremium() = isPremium
     fun getName() = name
+
+    fun setName(name: String) {
+        this.name = name
+    }
 }

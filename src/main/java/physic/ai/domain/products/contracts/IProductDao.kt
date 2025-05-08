@@ -1,9 +1,10 @@
-package physic.ai.domain.contracts
+package physic.ai.domain.products.contracts
 
-import physic.ai.domain.ProductEntity
+import physic.ai.domain.products.ProductEntity
 
 interface IProductDao {
-    fun getAllProducts(): List<ProductEntity>
+    fun getAllProducts(user: String, active: Boolean?): List<ProductEntity>
+    fun getAllProductsByUser(user: String): List<ProductEntity>
     fun getProductProfile(name: String): ProductEntity?
     fun registerProduct(user: ProductEntity)
     fun unregisterProduct(name: String): ProductEntity?

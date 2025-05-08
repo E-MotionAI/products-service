@@ -4,8 +4,11 @@ import io.quarkus.logging.Log
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.inject.Default
 import jakarta.inject.Inject
-import physic.ai.domain.ProductEntity
-import physic.ai.domain.contracts.IProductDao
+import jakarta.transaction.Transactional
+import physic.ai.domain.products.dto.NewProductDto
+import physic.ai.domain.products.dto.ProductMapper
+import physic.ai.domain.products.ProductEntity
+import physic.ai.domain.products.contracts.IProductDao
 import physic.ai.services.exceptions.ProductNotFoundException
 
 @ApplicationScoped
@@ -15,9 +18,12 @@ class ProductService {
     @field: Default
     lateinit var productDao: IProductDao
 
-    fun getAllProducts(): List<ProductEntity> {
+    @Inject
+    lateinit var productMapper: ProductMapper
+
+    fun getAllProducts(user: String, active: Boolean?): List<ProductEntity> {
         Log.info("Getting all products")
-        return productDao.getAllProducts()
+        return productDao.getAllProducts(user, active)
     }
 
     fun getProductProfile(name: String): ProductEntity? {
@@ -25,8 +31,10 @@ class ProductService {
         return productDao.getProductProfile(name)?: throw ProductNotFoundException(name)
     }
 
-    fun registerProduct(productEntity: ProductEntity) {
-        Log.info("Registering product name: ${productEntity.getName()}")
+    @Transactional
+    fun registerProduct(newProduct: NewProductDto) {
+        Log.info("Registering product name: ${newProduct.name}")
+        val productEntity = productMapper.toProductEntity(newProduct)
         return productDao.registerProduct(productEntity)
     }
 

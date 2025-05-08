@@ -1,0 +1,13 @@
+###
+POST http://localhost:8082/api/v1/products/lopes?active=true
+Content-Type: application/json
+
+{
+  "name": "New Product",
+  "user": "lopes"
+}
+
+###
+GET http://localhost:8082/api/v1/products
+
+<> 2025-05-08T230120.200.json
