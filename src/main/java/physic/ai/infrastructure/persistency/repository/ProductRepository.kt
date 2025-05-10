@@ -1,17 +1,16 @@
-package physic.ai.domain.products
+package physic.ai.infrastructure.persistency.repository
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
-import physic.ai.domain.products.contracts.IProductDao
-
+import physic.ai.infrastructure.persistency.entities.ProductEntity
+import physic.ai.domain.ports.output.repository.IProductRepository
 
 @ApplicationScoped
-class ProductRepository: PanacheRepository<ProductEntity>, IProductDao {
+class ProductRepository: PanacheRepository<ProductEntity>, IProductRepository {
     override fun getAllProducts(user: String, active: Boolean?): List<ProductEntity>  = find("user = ?1 and active = ?2", user, active).list()
 
-    override fun getProductProfile(name: String): ProductEntity? {
-        return find("name", name).firstResultOptional<ProductEntity>().orElse(null)
-    }
+    override fun getProductProfile(name: String): ProductEntity? =
+        find("name", name).firstResultOptional<ProductEntity>().orElse(null)
 
     override fun registerProduct(product: ProductEntity) {
         persist(product)

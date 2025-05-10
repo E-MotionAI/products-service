@@ -1,9 +1,9 @@
-package physic.ai.api
+package physic.ai.application
 
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.ext.ExceptionMapper
 import jakarta.ws.rs.ext.Provider
-import physic.ai.services.exceptions.ApiException
+import physic.ai.domain.exceptions.ApiException
 
 @Provider
 class GlobalExceptionHandler : ExceptionMapper<ApiException> {

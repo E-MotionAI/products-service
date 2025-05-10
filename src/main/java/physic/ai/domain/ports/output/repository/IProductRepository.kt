@@ -1,8 +1,8 @@
-package physic.ai.domain.products.contracts
+package physic.ai.domain.ports.output.repository
 
-import physic.ai.domain.products.ProductEntity
+import physic.ai.infrastructure.persistency.entities.ProductEntity
 
-interface IProductDao {
+interface IProductRepository {
     fun getAllProducts(user: String, active: Boolean?): List<ProductEntity>
     fun getAllProductsByUser(user: String): List<ProductEntity>
     fun getProductProfile(name: String): ProductEntity?

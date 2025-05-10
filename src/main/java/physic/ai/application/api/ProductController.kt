@@ -1,7 +1,8 @@
-package physic.ai.api
+package physic.ai.application.api
 
 import jakarta.enterprise.inject.Default
 import jakarta.inject.Inject
+import jakarta.transaction.Transactional
 import jakarta.ws.rs.DELETE
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
@@ -10,9 +11,9 @@ import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.core.Response
-import physic.ai.domain.products.dto.NewProductDto
-import physic.ai.domain.products.dto.ProductUpdatedDto
-import physic.ai.services.ProductService
+import physic.ai.application.dto.NewProductDto
+import physic.ai.application.dto.ProductUpdatedDto
+import physic.ai.application.services.ProductService
 
 @Path("/api/v1/products")
 class ProductController {
@@ -26,17 +27,20 @@ class ProductController {
         Response.ok(productService.getAllProducts(user, active)).build()
 
     @GET
-    @Path("/{name}")
-    fun getProductProfile(name: String): Response =
-        Response.ok(productService.getProductProfile(name)).build()
+    @Path("/{user}/{name}")
+    fun getProductProfile(@PathParam("user") user: String, @PathParam("name") name: String): Response =
+        Response.ok(productService.getProductProfile(user, name)).build()
 
     @POST
-    fun registerProduct(newProduct: NewProductDto): Response {
-        productService.registerProduct(newProduct)
+    @Path("/{user}")
+    @Transactional
+    fun registerProduct(@PathParam("user") user: String, newProduct: NewProductDto): Response {
+        productService.registerProduct(user, newProduct)
         return Response.status(Response.Status.CREATED.statusCode).build()
     }
 
     @PUT
+    @Transactional
     fun updateProduct(productUpdatedDto: ProductUpdatedDto): Response {
         val (name, premium) = productUpdatedDto
         productService.updateProductProfile(name, premium)
@@ -44,6 +48,7 @@ class ProductController {
     }
 
     @DELETE
+    @Transactional
     fun unregisterProduct(username: String): Response {
         productService.unregisterProduct(username)
         return Response.noContent().build()

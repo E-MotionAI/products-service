@@ -1,18 +1,24 @@
-package physic.ai.domain.products
+package physic.ai.infrastructure.persistency.entities
 
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 open class ProductEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private var productId: Integer? = null,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private var productId: Long? = null,
     private var name: String = "",
     private var isPremium: Boolean = false,
-    private var isActive: Boolean = false
+    private var isActive: Boolean = false,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private var user: UserEntity
 ){
     fun setPremium(premium: Boolean) {
         this.isPremium = premium
