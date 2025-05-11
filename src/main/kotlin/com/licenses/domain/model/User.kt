@@ -7,12 +7,12 @@ enum class UserStatus {
     DEACTIVATED
 }
 
-data class User(val name: String = "", var products: MutableList<Product> = mutableListOf(), var status: UserStatus) {
+data class User(val userId: Long = 0, val name: String = "", var products: MutableList<Product> = mutableListOf(), var status: UserStatus) {
     init {
         status = UserStatus.CREATED
     }
 
-    fun addProduct(product: Product) {
+    fun registerNewProduct(product: Product) {
         if(validateNewProduct(product)){
             products.add(product)
         }

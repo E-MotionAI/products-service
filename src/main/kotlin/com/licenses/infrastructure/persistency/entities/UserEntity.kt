@@ -23,7 +23,7 @@ open class UserEntity (
     @Enumerated(EnumType.STRING)
     private var status: UserStatus = UserStatus.CREATED,
     @OneToMany(mappedBy = "user",
-        cascade = [CascadeType.ALL],
+        cascade = [CascadeType.PERSIST],
         orphanRemoval = true,
         fetch = FetchType.LAZY)
     private var products: MutableList<ProductEntity> = mutableListOf()
@@ -43,4 +43,13 @@ open class UserEntity (
     fun getProducts(): MutableList<ProductEntity> {
         return products
     }
+
+    fun getId(): Long? {
+        return userId
+    }
+
+    fun setId(userId: Long?) {
+        this.userId = userId
+    }
+
 }

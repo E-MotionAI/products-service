@@ -46,8 +46,10 @@ class ProductService {
             ?: throw UserNotFoundException(user)
         val user = userMapper.toUser(targetUserEntity)
         val product = productMapper.toProduct(newProduct)
-        user.addProduct(product)
-        return userRepository.persistUser(targetUserEntity)
+        user.registerNewProduct(product)
+        val productEntity = productMapper.toProductEntity(product)
+        productEntity.setUser(targetUserEntity)
+        return productRepository.registerProduct(productEntity)
     }
 
     fun updateProductProfile(name: String, premium: Boolean?): ProductEntity? {

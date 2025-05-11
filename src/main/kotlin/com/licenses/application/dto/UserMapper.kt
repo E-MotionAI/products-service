@@ -8,11 +8,14 @@ import org.mapstruct.Mapping
 
 @Mapper(componentModel = "cdi", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 interface UserMapper {
+
+    @Mapping(target = "userId", source = "id")
     fun toUser(user: UserEntity): User
 
     @Mapping(target = "products", expression = "java(new java.util.ArrayList<>())")
     @Mapping(target = "status", constant = "CREATED")
     fun toUser(user: NewUserDto): User
 
+    @Mapping(target = "id", source = "userId")
     fun toUserEntity(user: User): UserEntity
 }

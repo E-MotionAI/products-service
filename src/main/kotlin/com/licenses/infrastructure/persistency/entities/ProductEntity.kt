@@ -35,4 +35,8 @@ open class ProductEntity(
     fun setName(name: String) {
         this.name = name
     }
+
+    fun setUser(user: UserEntity) {
+        this.user = user
+    }
 }

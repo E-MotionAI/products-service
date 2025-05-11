@@ -8,5 +8,6 @@ import com.licenses.infrastructure.persistency.entities.ProductEntity
 @Mapper(componentModel = "cdi", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 interface ProductMapper {
     fun toProductEntity(newProduct: NewProductDto): ProductEntity
+    fun toProductEntity(product: Product): ProductEntity
     fun toProduct(newProduct: NewProductDto): Product
 }
