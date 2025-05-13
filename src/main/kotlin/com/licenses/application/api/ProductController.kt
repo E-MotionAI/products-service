@@ -56,9 +56,10 @@ class ProductController {
     }
 
     @DELETE
+    @Path("/{user}/{productName}")
     @Transactional
-    fun unregisterProduct(username: String): Response {
-        productService.unregisterProduct(username)
+    fun unregisterProduct(@PathParam("user") user: String, @PathParam("productName") productName: String): Response {
+        productService.unregisterProduct(user, productName)
         return Response.noContent().build()
     }
 

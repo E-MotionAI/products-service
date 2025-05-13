@@ -12,7 +12,7 @@ class ProductRepository: PanacheRepository<ProductEntity>, IProductRepository {
     override fun getProductProfile(name: String): ProductEntity? =
         find("name", name).firstResultOptional<ProductEntity>().orElse(null)
 
-    override fun registerProduct(product: ProductEntity) {
+    override fun persistProduct(product: ProductEntity) {
         persist(product)
     }
 
