@@ -10,4 +10,6 @@ interface ProductMapper {
     fun toProductEntity(newProduct: NewProductDto): ProductEntity
     fun toProductEntity(product: Product): ProductEntity
     fun toProduct(newProduct: NewProductDto): Product
+    fun toProductResponseDto(productEntity: ProductEntity): ProductResponseDto
+    fun toProductResponseListDto(productEntities: List<ProductEntity>): List<ProductResponseDto>
 }

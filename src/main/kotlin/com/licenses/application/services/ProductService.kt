@@ -7,6 +7,7 @@ import jakarta.inject.Inject
 import com.licenses.application.dto.NewProductDto
 import com.licenses.application.dto.NewUserDto
 import com.licenses.application.dto.ProductMapper
+import com.licenses.application.dto.ProductResponseDto
 import com.licenses.application.dto.UserMapper
 import com.licenses.infrastructure.persistency.entities.ProductEntity
 import com.licenses.domain.ports.output.repository.IProductRepository
@@ -30,14 +31,17 @@ class ProductService {
     @Inject
     lateinit var userMapper: UserMapper
 
-    fun getAllProducts(user: String, active: Boolean?): List<ProductEntity> {
+    fun getAllProducts(user: String, active: Boolean?): List<ProductResponseDto> {
         Log.info("Getting all products")
-        return productRepository.getAllProducts(user, active)
+        val productEntities = userRepository.getUser(user)?.getProducts() ?: throw UserNotFoundException(user)
+        return productMapper.toProductResponseListDto(productEntities)
     }
 
-    fun getProductProfile(user: String, name: String): ProductEntity? {
+    fun getProductProfileByUser(user: String, name: String): ProductResponseDto? {
         Log.info("Getting product by name: $name")
-        return productRepository.getProductProfile(name)?: throw ProductNotFoundException(name)
+        val userEntity = userRepository.getUser(user) ?: throw UserNotFoundException(name)
+        val productEntity = userEntity.getProducts().find { it.getName() == name } ?: throw ProductNotFoundException(name)
+        return productMapper.toProductResponseDto(productEntity)
     }
 
     fun registerProduct(user: String, newProduct: NewProductDto) {

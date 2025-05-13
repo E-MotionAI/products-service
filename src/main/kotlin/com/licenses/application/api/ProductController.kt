@@ -30,7 +30,7 @@ class ProductController {
     @GET
     @Path("/{user}/{name}")
     fun getProductProfile(@PathParam("user") user: String, @PathParam("name") name: String): Response =
-        Response.ok(productService.getProductProfile(user, name)).build()
+        Response.ok(productService.getProductProfileByUser(user, name)).build()
 
     @POST
     @Path("/{user}")

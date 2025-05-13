@@ -3,6 +3,7 @@ package com.licenses.infrastructure.persistency.repository
 import io.quarkus.hibernate.orm.panache.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import com.licenses.domain.ports.output.repository.IUserRepository
+import com.licenses.infrastructure.persistency.entities.ProductEntity
 import com.licenses.infrastructure.persistency.entities.UserEntity
 
 @ApplicationScoped
