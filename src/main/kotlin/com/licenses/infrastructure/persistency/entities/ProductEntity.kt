@@ -39,4 +39,8 @@ open class ProductEntity(
     fun setUser(user: UserEntity) {
         this.user = user
     }
+
+    fun getProductId(): Long? {
+        return productId
+    }
 }

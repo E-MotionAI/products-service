@@ -2,14 +2,11 @@
 GET http://localhost:8082/api/v1/products/lopes
 
 ###
-GET http://localhost:8082/api/v1/products/lopes
-
-###
 POST http://localhost:8082/api/v1/products/lopes
 Content-Type: application/json
 
 {
-  "name": "New Product"
+  "name": "Product 1"
 }
 
 ###
