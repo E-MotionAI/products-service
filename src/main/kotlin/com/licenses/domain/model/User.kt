@@ -7,7 +7,7 @@ enum class UserStatus {
     DEACTIVATED
 }
 
-data class User(val userId: Long = 0, val name: String = "", var products: MutableList<Product> = mutableListOf(), var status: UserStatus) {
+data class User(val userId: Long?, val name: String = "", var products: MutableList<Product> = mutableListOf(), var status: UserStatus) {
     init {
         status = UserStatus.CREATED
     }

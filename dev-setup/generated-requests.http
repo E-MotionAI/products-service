@@ -2,7 +2,7 @@
 GET http://localhost:8082/api/v1/products/lopes
 
 ###
-GET http://localhost:8082/api/v1/products/lopes/New Product
+GET http://localhost:8082/api/v1/products/lopes
 
 ###
 POST http://localhost:8082/api/v1/products/lopes

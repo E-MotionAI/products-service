@@ -1,6 +1,5 @@
 package com.licenses.infrastructure.persistency.entities
 
-import com.licenses.domain.model.User
 import com.licenses.domain.model.UserStatus
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
