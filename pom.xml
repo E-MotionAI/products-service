@@ -93,6 +93,7 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
@@ -167,9 +168,9 @@
                             <goal>kapt</goal>
                         </goals>
                         <configuration>
-                            <sourceDirs>
-                                <sourceDir>src/main/kotlin</sourceDir>
-                            </sourceDirs>
+                            <jvmTarget>21</jvmTarget> <!-- Match your Java version -->
+                            <languageVersion>2.1</languageVersion>
+                            <apiVersion>2.1</apiVersion>
                             <annotationProcessorPaths>
                                 <annotationProcessorPath>
                                     <groupId>org.mapstruct</groupId>
