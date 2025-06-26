@@ -15,6 +15,7 @@ import com.licenses.application.dto.NewProductDto
 import com.licenses.application.dto.NewUserDto
 import com.licenses.application.dto.ProductUpdatedDto
 import com.licenses.application.services.ProductService
+import jakarta.annotation.security.RolesAllowed
 
 @Path("/api/v1/products")
 class ProductController {
@@ -23,14 +24,12 @@ class ProductController {
     lateinit var productService: ProductService
 
     @GET
+    @RolesAllowed("MK_USER")
     @Path("/{user}")
-    fun getAllProducts(@PathParam("user") user: String, @QueryParam("active") active: Boolean?): Response =
-        Response.ok(productService.getAllProducts(user, active)).build()
-
-    @GET
-    @Path("/{user}/{name}")
-    fun getProductProfile(@PathParam("user") user: String, @PathParam("name") name: String): Response =
-        Response.ok(productService.getProductProfileByUser(user, name)).build()
+    fun getAllProducts(@PathParam("user") user: String,
+                       @QueryParam("product") product: String?,
+                       @QueryParam("active") active: Boolean?): Response =
+        Response.ok(productService.getAllProducts(user, product, active)).build()
 
     @POST
     @Path("/{user}")
@@ -62,5 +61,4 @@ class ProductController {
         productService.unregisterProduct(user, productName)
         return Response.noContent().build()
     }
-
 }

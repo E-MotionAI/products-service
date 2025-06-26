@@ -31,17 +31,19 @@ class ProductService {
     @Inject
     lateinit var userMapper: UserMapper
 
-    fun getAllProducts(user: String, active: Boolean?): List<ProductResponseDto> {
-        Log.info("Getting all products")
-        val productEntities = userRepository.getUser(user)?.getProducts() ?: throw UserNotFoundException(user)
-        return productMapper.toProductResponseListDto(productEntities)
-    }
+    fun getAllProducts(user: String, product: String?, active: Boolean?): List<ProductResponseDto> {
+        var productEntities: List<ProductEntity>
 
-    fun getProductProfileByUser(user: String, name: String): ProductResponseDto? {
-        Log.info("Getting product by name: $name")
-        val userEntity = userRepository.getUser(user) ?: throw UserNotFoundException(name)
-        val productEntity = userEntity.getProducts().find { it.getName() == name } ?: throw ProductNotFoundException(name)
-        return productMapper.toProductResponseDto(productEntity)
+        if(product == null) {
+            Log.info("Getting all products")
+            productEntities = userRepository.getUser(user)?.getProducts() ?: throw UserNotFoundException(user)
+        }else {
+            Log.info("Getting product by name: $product")
+            val userEntity = userRepository.getUser(user) ?: throw UserNotFoundException(user)
+            val productEntity = userEntity.getProducts().find { it.getName() == product } ?: throw ProductNotFoundException(product)
+            productEntities = listOf(productEntity)
+        }
+        return productMapper.toProductResponseListDto(productEntities)
     }
 
     fun registerProduct(user: String, newProduct: NewProductDto) {
